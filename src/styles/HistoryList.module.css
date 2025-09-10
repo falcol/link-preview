@@ -1,0 +1,187 @@
+/* History List Component Styles */
+.historySection {
+  background-color: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 0.75rem;
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+
+.sectionHeader {
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid var(--border-color);
+  background-color: var(--bg-secondary);
+  font-weight: 600;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.sectionContent {
+  padding: 0;
+}
+
+/* Display Controls */
+.displayControls {
+  padding: 1rem 1.25rem 0.5rem 1.25rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.displaySelect {
+  width: 100%;
+}
+
+.historyList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-height: 40vh; /* scroll when many items */
+  overflow: auto;
+}
+
+.historyItem {
+  padding: 0.75rem 1.25rem;
+  border-bottom: 1px solid var(--border-color);
+  transition: background-color 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.historyItem:hover {
+  background-color: var(--hover-bg);
+}
+
+.historyItem:last-child {
+  border-bottom: none;
+}
+
+.historyContent {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex: 1;
+  min-width: 0;
+}
+
+.historyTexts {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.historyUrl {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  flex: 1;
+}
+
+.historySubtitle {
+  font-size: 0.75rem;
+  color: var(--text-tertiary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* show up to 2 lines for long params */
+  -webkit-box-orient: vertical;
+}
+
+.historyBadges {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.historyStatus {
+  margin-left: 0.5rem;
+  font-size: 0.75rem;
+  flex-shrink: 0;
+}
+
+.statusSuccess {
+  color: var(--success);
+}
+
+.statusError {
+  color: var(--error);
+}
+
+/* Delete Button */
+.deleteBtn {
+  background: none;
+  border: none;
+  color: var(--text-tertiary);
+  cursor: pointer;
+  padding: 0.25rem;
+  border-radius: 0.25rem;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+}
+
+.deleteBtn:hover {
+  background-color: var(--error);
+  color: white;
+}
+
+.badgeMuted {
+  color: var(--text-tertiary);
+  font-size: 0.75rem;
+}
+
+.clearHistoryBtn {
+  width: 100%;
+  margin: 1rem 1.25rem 1.25rem 1.25rem;
+  width: calc(100% - 2.5rem);
+  padding: 0.75rem 1rem;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  background-color: var(--bg-tertiary);
+  color: var(--text-secondary);
+  border: 1px solid var(--border-color);
+}
+
+.clearHistoryBtn:hover {
+  background-color: var(--hover-bg);
+}
+
+.btn {
+  padding: 0.75rem 1rem;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.btnSecondary {
+  background-color: var(--bg-tertiary);
+  color: var(--text-secondary);
+  border: 1px solid var(--border-color);
+}
+
+.btnSecondary:hover {
+  background-color: var(--hover-bg);
+}
