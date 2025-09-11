@@ -1,36 +1,57 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🔗 Link Preview
 
-## Getting Started
+A modern web application for generating and previewing link metadata with a beautiful, responsive interface.
 
-First, run the development server:
+## ✨ Features
+
+- **URL Analysis**: Extract metadata (title, description, images) from any URL
+- **Real-time Preview**: Visual preview of how links appear on social platforms
+- **History Management**: Track and manage your analyzed URLs with local storage
+- **User Statistics**: Monitor your usage with detailed analytics
+- **Theme Support**: Light and dark mode with smooth transitions
+- **Responsive Design**: Works perfectly on desktop and mobile devices
+- **Fast Performance**: Optimized with caching and rate limiting
+
+## 🚀 Quick Start
+
+### Prerequisites
+- Node.js 18+
+- npm, yarn, pnpm, or bun
+
+### Installation
 
 ```bash
+# Clone the repository
+git clone https://github.com/falcol/link-preview.git
+cd link-preview
+
+# Install dependencies
+npm install
+
+# Run development server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) to see the application.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🐳 Docker Deployment
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+# Build and run with Docker Compose
+docker-compose up --build
 
-## Learn More
+# Run in background
+docker-compose up -d --build
+```
 
-To learn more about Next.js, take a look at the following resources:
+The application will be available at [http://localhost:3000](http://localhost:3000).
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🛠️ Tech Stack
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **Framework**: Next.js 15.5.2 with App Router
+- **UI Library**: Ant Design 5.27.3
+- **Styling**: CSS Modules with custom themes
+- **HTTP Client**: Axios for API requests
+- **HTML Parsing**: Cheerio for metadata extraction
+- **Language**: TypeScript
+- **Deployment**: Docker with multi-stage builds
