@@ -40,6 +40,21 @@ export default function Home() {
       {/* Main Content */}
       <main className="main-content">
         <LinkPreview />
+        {/* JSON-LD structured data for SEO */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'WebApplication',
+              name: 'Link Preview',
+              description: 'Analyze and preview Open Graph, Twitter Cards, and SEO metadata for any URL.',
+              applicationCategory: 'DeveloperApplication',
+              operatingSystem: 'Web',
+              url: (typeof window !== 'undefined' ? window.location.origin : ''),
+            }),
+          }}
+        />
       </main>
 
       {/* Footer */}
