@@ -45,13 +45,3 @@ docker-compose up -d --build
 ```
 
 The application will be available at [http://localhost:3000](http://localhost:3000).
-
-## 🛠️ Tech Stack
-
-- **Framework**: Next.js 15.5.2 with App Router
-- **UI Library**: Ant Design 5.27.3
-- **Styling**: CSS Modules with custom themes
-- **HTTP Client**: Axios for API requests
-- **HTML Parsing**: Cheerio for metadata extraction
-- **Language**: TypeScript
-- **Deployment**: Docker with multi-stage builds

@@ -64,7 +64,8 @@ interface UserStats {
   successCount: number;
   cacheHits: number;
   totalTime: number;
-  lastWeekReset: string;
+  lastWeekReset: string; // ISO week key or date string (backward compatibility)
+  lastDayReset?: string; // ISO date string YYYY-MM-DD
 }
 
 interface HistoryItem {
@@ -74,6 +75,30 @@ interface HistoryItem {
   cached: boolean;
   responseTime: number;
   title?: string;
+}
+
+// ===== Date/Week helper utilities (outside component to avoid hook deps warnings) =====
+function getTodayStr(): string {
+  return new Date().toISOString().split('T')[0];
+}
+
+function getISOWeekKey(date: Date): string {
+  // ISO week: year-Www (e.g., 2025-W37)
+  const tmp = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
+  const dayNum = tmp.getUTCDay() || 7; // 1..7
+  tmp.setUTCDate(tmp.getUTCDate() + 4 - dayNum);
+  const yearStart = new Date(Date.UTC(tmp.getUTCFullYear(), 0, 1));
+  const weekNo = Math.ceil((((tmp.getTime() - yearStart.getTime()) / 86400000) + 1) / 7);
+  const weekStr = String(weekNo).padStart(2, '0');
+  return `${tmp.getUTCFullYear()}-W${weekStr}`;
+}
+
+function coerceWeekKey(value: string | undefined, fallbackDate: string): string {
+  if (!value) return getISOWeekKey(new Date(fallbackDate));
+  if (/^\d{4}-W\d{2}$/.test(value)) return value; // already a week key
+  const d = new Date(value);
+  if (isNaN(d.getTime())) return getISOWeekKey(new Date(fallbackDate));
+  return getISOWeekKey(d);
 }
 
 export default function LinkPreview() {
@@ -90,7 +115,8 @@ export default function LinkPreview() {
     successCount: 0,
     cacheHits: 0,
     totalTime: 0,
-    lastWeekReset: new Date().toISOString().split('T')[0]
+    lastWeekReset: getISOWeekKey(new Date()),
+    lastDayReset: new Date().toISOString().split('T')[0]
   });
   const [mounted, setMounted] = useState(false);
   const currentRequest = useRef<AbortController | null>(null);
@@ -134,6 +160,30 @@ export default function LinkPreview() {
     if (!mounted) return;
     localStorage.setItem('userStats', JSON.stringify(userStats));
   }, [userStats, mounted]);
+
+  // On mount, normalize and reset today/week counters if day/week changed
+  useEffect(() => {
+    if (!mounted) return;
+    setUserStats(prev => {
+      const today = getTodayStr();
+      const currentWeek = getISOWeekKey(new Date());
+      const prevWeekKey = coerceWeekKey(prev.lastWeekReset, today);
+      const prevDay = prev.lastDayReset; // intentionally undefined on first run for migration
+
+      const resetDay = !prevDay || prevDay !== today;
+      const resetWeek = prevWeekKey !== currentWeek;
+
+      if (!resetDay && !resetWeek) return prev;
+
+      return {
+        ...prev,
+        todayCount: resetDay ? 0 : prev.todayCount,
+        weekCount: resetWeek ? 0 : prev.weekCount,
+        lastDayReset: today,
+        lastWeekReset: currentWeek
+      };
+    });
+  }, [mounted]);
 
   // Helpers: validate and normalize URL input
   function isValidHttpUrl(u: string) {

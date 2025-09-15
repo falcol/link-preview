@@ -31,12 +31,12 @@ export default function UserStats({ userStats }: UserStatsProps) {
       <div className={styles.sectionContent}>
         <div className={styles.statsGrid}>
           <div className={styles.statItem}>
-            <span className={styles.statValue}>{userStats.todayCount}</span>
-            <div className={styles.statLabel}>Today</div>
-          </div>
-          <div className={styles.statItem}>
             <span className={styles.statValue}>{userStats.weekCount}</span>
             <div className={styles.statLabel}>This week</div>
+          </div>
+          <div className={styles.statItem}>
+            <span className={styles.statValue}>{userStats.totalAnalyzed}</span>
+            <div className={styles.statLabel}>Total</div>
           </div>
           <div className={styles.statItem}>
             <span className={styles.statValue}>{successRate}% ✅</span>
