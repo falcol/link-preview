@@ -31,6 +31,6 @@ export class TtlCache<TValue = unknown> {
   }
 }
 
-export const globalCache = new TtlCache<any>();
+export const globalCache = new TtlCache<unknown>();
 
 

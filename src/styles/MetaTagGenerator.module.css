@@ -1,0 +1,132 @@
+.metaSection {
+  background: var(--panel-bg, transparent);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.sectionHeader {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.sectionContent {
+  padding: 12px;
+}
+
+.controlsGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.formItem {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.formItem label {
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+  margin: 12px 0;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  background: var(--btn-bg, transparent);
+  cursor: pointer;
+}
+
+.btnPrimary {
+  background: var(--primary-50, #1677ff);
+  color: #fff;
+  border-color: var(--primary-50, #1677ff);
+}
+
+.btnSecondary {
+  background: var(--bg-secondary);
+}
+
+.previewGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.previewCard {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.previewImage {
+  position: relative;
+  width: 100%;
+  padding-top: 52.5%;
+}
+
+.previewImagePlaceholder {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+}
+
+.previewContent {
+  padding: 12px 14px;
+}
+
+.previewTitle {
+  font-weight: 700;
+  font-size: 18px;
+  margin-bottom: 6px;
+}
+
+.previewDesc {
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+
+.previewUrl {
+  margin-top: 10px;
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.codePane {
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+@media (max-width: 900px) {
+  .controlsGrid {
+    grid-template-columns: 1fr;
+  }
+  .previewGrid {
+    grid-template-columns: 1fr;
+  }
+  .actions {
+    flex-wrap: wrap;
+  }
+}
+
+

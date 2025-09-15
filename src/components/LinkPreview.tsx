@@ -4,6 +4,7 @@ import axios from 'axios';
 import { useEffect, useRef, useState } from 'react';
 import HistoryList from './HistoryList';
 import MetaTabs from './MetaTabs';
+import MetaTagGenerator from './MetaTagGenerator';
 import PreviewVisual from './PreviewVisual';
 import ThemeExport from './ThemeExport';
 import UrlInput from './UrlInput';
@@ -15,6 +16,45 @@ interface Metadata {
   image?: string;
   cached?: boolean;
   url?: string;
+  og?: {
+    title?: string;
+    description?: string;
+    image?: string;
+    type?: string;
+    site_name?: string;
+    url?: string;
+    images?: string[];
+    locale?: string;
+    published_time?: string;
+    modified_time?: string;
+    section?: string;
+    tags?: string[];
+  };
+  twitter?: {
+    card?: string;
+    title?: string;
+    description?: string;
+    image?: string;
+    site?: string;
+    creator?: string;
+    images?: string[];
+  };
+  basic?: {
+    charset?: string;
+    viewport?: string;
+    theme_color?: string;
+    robots?: string;
+    canonical?: string;
+    lang?: string;
+    author?: string;
+  };
+  icons?: {
+    icon?: string[];
+    shortcut?: string[];
+    apple_touch_icon?: string[];
+    mask_icon?: string[];
+    ms_tile?: string;
+  };
 }
 
 interface UserStats {
@@ -42,6 +82,7 @@ export default function LinkPreview() {
   const [metadata, setMetadata] = useState<Metadata | null>(null);
   const [urlHistory, setUrlHistory] = useState<HistoryItem[]>([]);
   const [inputValue, setInputValue] = useState('');
+  const [mode, setMode] = useState<'preview' | 'create'>('preview');
   const [userStats, setUserStats] = useState<UserStats>({
     totalAnalyzed: 0,
     todayCount: 0,
@@ -248,6 +289,7 @@ export default function LinkPreview() {
 
   function handleHistoryClick(url: string) {
     setInputValue(url);
+    setMode('preview'); // Switch to preview mode when clicking history
     // Debounce quick repeated clicks
     const id = setTimeout(() => fetchMetadata(url), 120);
     return () => clearTimeout(id);
@@ -289,8 +331,9 @@ export default function LinkPreview() {
           <UrlInput
             inputValue={inputValue}
             setInputValue={setInputValue}
-            onAnalyze={fetchMetadata}
+            onAnalyze={(u) => { setMode('preview'); fetchMetadata(u); }}
             loading={loading}
+            onCreate={() => setMode('create')}
           />
           <HistoryList
             urlHistory={urlHistory}
@@ -340,8 +383,9 @@ export default function LinkPreview() {
         <UrlInput
           inputValue={inputValue}
           setInputValue={setInputValue}
-          onAnalyze={fetchMetadata}
+          onAnalyze={(u) => { setMode('preview'); fetchMetadata(u); }}
           loading={loading}
+          onCreate={() => setMode('create')}
         />
         <HistoryList
           urlHistory={urlHistory}
@@ -353,24 +397,30 @@ export default function LinkPreview() {
 
       {/* Center Panel */}
       <div className="center-panel">
-        <PreviewVisual
-          loading={loading}
-          metadata={metadata}
-          avgTime={avgTime}
-        />
+        {mode === 'create' ? (
+          <MetaTagGenerator />
+        ) : (
+          <>
+            <PreviewVisual
+              loading={loading}
+              metadata={metadata}
+              avgTime={avgTime}
+            />
 
-        {error && (
-          <div className="error-message">
-            {error}
-          </div>
+            {error && (
+              <div className="error-message">
+                {error}
+              </div>
+            )}
+
+            {metadata && <MetaTabs metadata={metadata} />}
+
+            {/* Banner Ad */}
+            {/* <div className="banner-ad">
+              [Google Ad] 728x90 Banner
+            </div> */}
+          </>
         )}
-
-        {metadata && <MetaTabs metadata={metadata} />}
-
-        {/* Banner Ad */}
-        {/* <div className="banner-ad">
-          [Google Ad] 728x90 Banner
-        </div> */}
       </div>
 
       {/* Right Sidebar - Stats and Theme */}

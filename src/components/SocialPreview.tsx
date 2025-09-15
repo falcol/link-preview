@@ -10,8 +10,29 @@ interface Metadata {
   image?: string;
   cached?: boolean;
   url?: string;
-  og?: { title?: string; description?: string; image?: string };
-  twitter?: { card?: string | undefined; title?: string; description?: string; image?: string };
+  og?: {
+    title?: string;
+    description?: string;
+    image?: string;
+    type?: string;
+    site_name?: string;
+    url?: string;
+    images?: string[];
+    locale?: string;
+    published_time?: string;
+    modified_time?: string;
+    section?: string;
+    tags?: string[];
+  };
+  twitter?: {
+    card?: string;
+    title?: string;
+    description?: string;
+    image?: string;
+    site?: string;
+    creator?: string;
+    images?: string[];
+  };
 }
 
 interface SocialPreviewProps {
@@ -55,7 +76,12 @@ export default function SocialPreview({ metadata }: SocialPreviewProps) {
             <div className="social-card-content">
               <div className="social-card-title">{title || 'Title here'}</div>
               <div className="social-card-description">{description || 'Description preview...'}</div>
-              <div className="social-card-url">{isTwitter ? `🐦 ${metadata.twitter?.card || 'summary'}` : ''} {metadata.url ? new URL(metadata.url).hostname : 'example.com'}</div>
+              <div className="social-card-url">
+                {isTwitter ? `🐦 ${metadata.twitter?.card || 'summary'}` : ''}
+                {metadata.twitter?.site && isTwitter ? ` • @${metadata.twitter.site}` : ''}
+                {metadata.twitter?.creator && isTwitter ? ` • by @${metadata.twitter.creator}` : ''}
+                {metadata.url ? new URL(metadata.url).hostname : 'example.com'}
+              </div>
             </div>
           </div>
         </div>

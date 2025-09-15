@@ -1,7 +1,7 @@
 'use client';
 
 import styles from '@/styles/UrlInput.module.css';
-import { EditOutlined, LoadingOutlined, ReloadOutlined, SearchOutlined } from '@ant-design/icons';
+import { EditOutlined, LoadingOutlined, PlusOutlined, ReloadOutlined, SearchOutlined } from '@ant-design/icons';
 import { Input, message } from 'antd';
 
 interface UrlInputProps {
@@ -9,9 +9,10 @@ interface UrlInputProps {
   setInputValue: (value: string) => void;
   onAnalyze: (url: string) => void;
   loading: boolean;
+  onCreate: () => void;
 }
 
-export default function UrlInput({ inputValue, setInputValue, onAnalyze, loading }: UrlInputProps) {
+export default function UrlInput({ inputValue, setInputValue, onAnalyze, loading, onCreate }: UrlInputProps) {
   const [msgApi, contextHolder] = message.useMessage();
   // Validate and normalize URL before invoking analyze
   function isValidHttpUrl(u: string) {
@@ -101,6 +102,19 @@ export default function UrlInput({ inputValue, setInputValue, onAnalyze, loading
             disabled={loading}
           >
             {loading ? <LoadingOutlined spin /> : <SearchOutlined />} {loading ? 'Loading...' : 'Preview'}
+          </button>
+          <button
+            className={`${styles.btn} ${styles.btnSecondary}`}
+            onClick={() => {
+              if (loading) {
+                msgApi.warning('Please wait for the current request to finish.');
+                return;
+              }
+              onCreate();
+            }}
+            disabled={loading}
+          >
+            <PlusOutlined /> Create
           </button>
           <button
             className={`${styles.btn} ${styles.btnSecondary}`}

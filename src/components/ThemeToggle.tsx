@@ -26,7 +26,7 @@ export function ThemeToggle() {
     <button
       onClick={handleToggle}
       className={`theme-toggle ${isSwitching ? 'switching' : ''}`}
-      aria-label={theme === "light" ? "Chuyển sang chế độ tối" : "Chuyển sang chế độ sáng"}
+      aria-label={theme === "light" ? "Switch to Dark Mode" : "Switch to Light Mode"}
       title={theme === "light" ? "Switch to Dark Mode" : "Switch to Light Mode"}
     >
       {theme === "light" ? (
