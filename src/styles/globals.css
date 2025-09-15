@@ -94,6 +94,35 @@ body {
   gap: 1rem;
 }
 
+/* GitHub link button */
+.github-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  margin-right: 0.25rem;
+  color: #6b7280; /* light mode default */
+  text-decoration: none;
+  border-radius: 8px;
+  transition: color 0.2s ease, background-color 0.2s ease, transform 0.15s ease;
+}
+
+.github-link:hover {
+  color: #111827; /* darker on hover */
+  background-color: var(--hover-bg);
+  transform: translateY(-1px);
+}
+
+.dark .github-link {
+  color: #9ca3af; /* dark mode default */
+}
+
+.dark .github-link:hover {
+  color: #ffffff;
+  background-color: rgba(255, 255, 255, 0.06);
+}
+
 .header-search-row {
   display: flex;
   align-items: center;
